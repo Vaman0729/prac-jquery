@@ -1,19 +1,23 @@
-<script>
-let items = ["Apple","Banana","Mango","Orange","Grapes","Pineapple"];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX Search Suggestion</title>
+    <link rel="stylesheet" href="style.css">
 
-function search() {
-    let query = document.getElementById("search").value.toLowerCase();
-    let output = "";
-    let count = 0;
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 
-    for (let i = 0; i < items.length; i++) {
-        if (items[i].toLowerCase().includes(query)) {
-            output += "<div>" + items[i] + "</div>";
-            count++;
-            if (count == 3) break;
-        }
-    }
+    <div class="container">
+        <h2>Search Suggestion</h2>
 
-    document.getElementById("suggestions").innerHTML = output;
-}
-</script>
+        <input type="text" id="search" placeholder="Search fruits..." autocomplete="off">
+        <div id="suggestions"></div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
