@@ -1,37 +1,19 @@
 <script>
-$(document).ready(function() {
+let items = ["Apple","Banana","Mango","Orange","Grapes","Pineapple"];
 
-    $("#search").keyup(function() {
-        let query = $(this).val().toLowerCase();
+function search() {
+    let query = document.getElementById("search").value.toLowerCase();
+    let output = "";
+    let count = 0;
 
-        if (query !== "") {
-            $.ajax({
-                url: "data.txt",
-                method: "GET",
-                success: function(data) {
-
-                    let items = data.split(",");
-                    let output = "";
-                    let count = 0;   // counter
-
-                    for (let i = 0; i < items.length; i++) {
-                        let item = items[i].trim();
-
-                        if (item.toLowerCase().includes(query)) {
-                            output += "<div class='item'>" + item + "</div>";
-                            count++;
-
-                            if (count == 3) break;  // limit to 3
-                        }
-                    }
-
-                    $("#suggestions").html(output);
-                }
-            });
-        } else {
-            $("#suggestions").html("");
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].toLowerCase().includes(query)) {
+            output += "<div>" + items[i] + "</div>";
+            count++;
+            if (count == 3) break;
         }
-    });
+    }
 
-});
+    document.getElementById("suggestions").innerHTML = output;
+}
 </script>
