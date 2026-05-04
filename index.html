@@ -1,63 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>AJAX Search Suggestion</title>
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <style>
-        body {
-            font-family: Arial;
-            text-align: center;
-            background-color: lightblue;
-        }
-        input {
-            padding: 10px;
-            width: 250px;
-        }
-        #suggestions {
-            border: 1px solid black;
-            width: 250px;
-            margin: auto;
-            background: white;
-        }
-        .item {
-            padding: 5px;
-            cursor: pointer;
-        }
-        .item:hover {
-            background-color: lightgray;
-        }
-    </style>
-</head>
-<body>
-
-<h2>Search Suggestion</h2>
-
-<input type="text" id="search" placeholder="Type to search...">
-<div id="suggestions"></div>
-
 <script>
 $(document).ready(function() {
 
     $("#search").keyup(function() {
-        let query = $(this).val();
+        let query = $(this).val().toLowerCase();
 
-        if (query != "") {
+        if (query !== "") {
             $.ajax({
-                url: "data.txt",   // file to fetch data
+                url: "data.txt",
                 method: "GET",
                 success: function(data) {
 
                     let items = data.split(",");
                     let output = "";
+                    let count = 0;   // counter
 
-                    items.forEach(function(item) {
-                        if (item.toLowerCase().includes(query.toLowerCase())) {
+                    for (let i = 0; i < items.length; i++) {
+                        let item = items[i].trim();
+
+                        if (item.toLowerCase().includes(query)) {
                             output += "<div class='item'>" + item + "</div>";
+                            count++;
+
+                            if (count == 3) break;  // limit to 3
                         }
-                    });
+                    }
 
                     $("#suggestions").html(output);
                 }
@@ -69,6 +35,3 @@ $(document).ready(function() {
 
 });
 </script>
-
-</body>
-</html>
